@@ -19,16 +19,6 @@ export const Confirmation = ({ id, go }) => {
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
-        <button
-          type="button"
-          onClick={async () => {
-            await showAds()
-            go('HistoryPublication');
-          }}
-          className="SkipButton"
-        >
-          Отказаться
-        </button> 
 
         <img src={api.getImage('system/confirmation.png')} alt="" />
 
@@ -46,6 +36,17 @@ export const Confirmation = ({ id, go }) => {
             }}>
               {config?.confirmationButtonText}
             </Button>
+            <Button
+              type="button"
+              size="l"
+              appearance='accent'
+              onClick={async () => {
+                await showAds()
+                go('HistoryPublication');
+              }}
+            >
+              Отказаться
+            </Button> 
         </div>
       </div>
     </Panel>

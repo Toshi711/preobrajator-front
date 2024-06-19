@@ -8,6 +8,7 @@ import { showAds } from '../utils/utils';
 import { UserContext } from '../store/user-context';
 import api from '../utils/api';
 import Header from './../components/header'
+import { shuffle } from 'lodash';
 
 const MAX_COUNT = 16; // Количество фото которые будут загркжены/подгружены
 
@@ -36,7 +37,6 @@ const Home = ({ id, go, folders, setActiveFolder }) => {
   };
 
   const batchFolders = folders.slice(0, offset + MAX_COUNT)
-
   const childElements = batchFolders.map(folder => {
     
     const photo = folder.photos[0]
@@ -47,7 +47,7 @@ const Home = ({ id, go, folders, setActiveFolder }) => {
         key={folder.path}
         onClick={() => {
           setOffset(0);
-          setActiveFolder(folder);
+          setActiveFolder({...folder, photos: shuffle(folder.photos)});
           go("images")
         }}
         style={{

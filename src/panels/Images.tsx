@@ -5,7 +5,6 @@ import { showAds } from '../utils/utils';
 import Header from '../components/header';
 import api from '../utils/api';
 import Masonry from 'react-masonry-component';
-import { shuffle } from 'lodash';
 
 const MAX_COUNT = 16; // Количество фото которые будут загркжены/подгружены
 
@@ -26,8 +25,7 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
     loadingTimeout();
     setOffset(offset + MAX_COUNT); // Подгружаем еще фото с помощью смещения
   };
-
-  const photosBatch = shuffle(folder.photos.slice(0, offset + MAX_COUNT))
+  const photosBatch = folder.photos.slice(0, offset + MAX_COUNT)
 
   const childElements = photosBatch.map(photo => {
 

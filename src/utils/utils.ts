@@ -113,7 +113,7 @@ function isAddAvailable(throttle) {
     return true;
   }
 
-  const availableAddTime = moment().subtract(5, 'second');
+  const availableAddTime = moment().subtract(30, 'second');
   return availableAddTime.isAfter(lastAddTime);
 }
 
@@ -121,6 +121,7 @@ export async function showAds(
   throttle = true,
   adFormat: EAdsFormats = EAdsFormats.INTERSTITIAL,
 ) {
+
   if (!isAddAvailable(throttle)) {
     return;
   }

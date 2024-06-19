@@ -4,7 +4,7 @@ import { showAds } from '../../utils/utils';
 import { SubscribeButton } from '../../components/subscribe-button';
 import bridge, { EAdsFormats } from '@vkontakte/vk-bridge';
 import api from '../../utils/api';
-import { Panel } from '@vkontakte/vkui';
+import { Button, Panel } from '@vkontakte/vkui';
 
 export interface SubscribeProps {
   go: (number) => void;
@@ -13,7 +13,7 @@ export interface SubscribeProps {
 
 const showAdd = async (user: UserInterface, setPanel) => {
   if (!user?.limits.groupIds.length) {
-    await showAds(false, EAdsFormats.REWARD);
+    await showAds(true, EAdsFormats.REWARD);
     setPanel('Share');
   }
 };
@@ -44,16 +44,7 @@ export const Subscribe = ({ id, go }: SubscribeProps) => {
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
-        <button
-          type="button"
-          onClick={async () => {
-            await showAds(false);
-            go('Share');
-          }}
-          className="SkipButton"
-        >
-          Отказаться  
-        </button>
+
         <img src={api.getImage('system/subscribe.png')} alt="" />
         <div className="Buttons">
             <h1>{config?.subscribeWindowText}</h1>
@@ -65,6 +56,17 @@ export const Subscribe = ({ id, go }: SubscribeProps) => {
             >
               {config?.subscribeButton}
             </SubscribeButton>
+            <Button
+              type="button"
+              appearance='accent'
+              size="l"
+              onClick={async () => {
+                await showAds()
+                go('Share');
+              }}
+            >
+              Отказаться
+            </Button> 
         </div>
       </div>
     </Panel>

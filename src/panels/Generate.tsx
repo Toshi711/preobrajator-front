@@ -67,7 +67,7 @@ export default function Generate({ id, photo, go, ava }: GenerateProps) {
       try {
         const id = await api.generate(ava, photo);
         poll(id);
-        await showAds(false);
+        await showAds(true);
       } catch (e) {
         if (e instanceof LimitError) {
           go('limit');
