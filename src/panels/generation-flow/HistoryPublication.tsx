@@ -1,18 +1,17 @@
 import { shareHistory, showAds } from '../../utils/utils';
-import { Icon28StoryCircleFillViolet } from '@vkontakte/icons';
-import { Button, ButtonGroup } from '@vkontakte/vkui';
+import { Button, Panel } from '@vkontakte/vkui';
 import { useContext, useEffect } from 'react';
 import { GenerationResultContext } from '../../store/generation-result-context';
 import { UserContext } from '../../store/user-context';
 import api from '../../utils/api';
 
 export interface HistoryPublicationProps {
-  setPanel: (string) => void;
   go: (string) => void;
+  id: string
 }
 
 export const HistoryPublication = ({
-  setPanel,
+  id,
   go,
 }: HistoryPublicationProps) => {
   const { generationResult } = useContext(GenerationResultContext);
@@ -33,38 +32,40 @@ export const HistoryPublication = ({
       );
 
       await showAds(false);
-      setPanel('GenerationResult');
+      go('GenerationResult');
     } catch (e) {
       console.error(e);
     }
   };
 
   return (
-    <div className="InitMenu">
-      <button
-        type="button"
-        onClick={async () => {
-          await showAds(false);
-          setPanel('GenerationResult');
-        }}
-        
-        className="SkipButton"
-      >
-        Отказаться
-      </button>
+    <Panel id={id} style={{ minHeight: '100vh' }}>
+      <div className="InitMenu">
+        <button
+          type="button"
+          onClick={async () => {
+            await showAds(false);
+            go('GenerationResult');
+          }}
+          
+          className="SkipButton"
+        >
+          Отказаться
+        </button>
 
-      <img src={api.getImage('system/stories.png')} alt="" />
-      <div className="Buttons">
+        <img src={api.getImage('system/stories.png')} alt="" />
+        <div className="Buttons">
 
-        <h1>
-          {config?.storiesWindowText}
-        </h1>
-        
-        <Button size="l"  type="button" appearance='positive' className="DefaultButton" onClick={share}>
-          {config?.storiesButtonText}
-        </Button>
+          <h1>
+            {config?.storiesWindowText}
+          </h1>
+          
+          <Button size="l"  type="button" appearance='positive' className="DefaultButton" onClick={share}>
+            {config?.storiesButtonText}
+          </Button>
+        </div>
+
       </div>
-
-    </div>
+    </Panel>
   );
 };

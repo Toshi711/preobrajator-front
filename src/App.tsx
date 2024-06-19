@@ -10,7 +10,6 @@ import {
   SplitCol,
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
-
 import Home from './panels/Home';
 import Init from './panels/Init';
 import api from './utils/api';
@@ -19,7 +18,6 @@ import Generate from './panels/Generate';
 import NotFace from './panels/NotFace';
 import Source from './panels/Source'
 import ErrorBoundary from './error-boundary';
-import ErrorPanel from './panels/Error';
 import { Config, UserContext, UserInterface } from './store/user-context';
 import {
   GenerationResultInterface,
@@ -30,6 +28,13 @@ import {
   FolderPhotoInterface,
 } from './store/folder.interface';
 import Images from './panels/Images'
+import ErrorPanel from './panels/Error';
+
+import { Subscribe } from './panels/generation-flow/Subscribe';
+import { Share } from './panels/generation-flow/Share';
+import { HistoryPublication } from './panels/generation-flow/HistoryPublication';
+import { Confirmation } from './panels/generation-flow/Confirmation';
+import { GenerationResult } from './panels/generation-flow/GenerationResult';
 
 const App = () => {
 
@@ -121,6 +126,11 @@ const App = () => {
                       />
                       <NotFace id="get_image" setAva={setAva} go={go} />
                       <ErrorPanel id="error_panel" go={go} />
+                      <Subscribe id="Subscribe" go={go} />
+                      <Share id="Share" go={go}/>
+                      <HistoryPublication id="HistoryPublication" go={go}/>
+                      <Confirmation id="Confirmation" go={go}/>
+                      <GenerationResult id="GenerationResult" go={go}/>
                     </View>
                   </SplitCol>
                 </SplitLayout>

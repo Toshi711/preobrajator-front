@@ -26,6 +26,7 @@ export default function Limit({ id, go }) {
     try {
       await wallPost(
         generationResult?.textPhoto,
+        generationResult?.textCaption,
         generationResult?.photo.relativePath,
       );
       await showAds(false, EAdsFormats.REWARD);

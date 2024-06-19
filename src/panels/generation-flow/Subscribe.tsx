@@ -4,11 +4,11 @@ import { showAds } from '../../utils/utils';
 import { SubscribeButton } from '../../components/subscribe-button';
 import bridge, { EAdsFormats } from '@vkontakte/vk-bridge';
 import api from '../../utils/api';
-import { Button } from '@vkontakte/vkui';
+import { Panel } from '@vkontakte/vkui';
 
 export interface SubscribeProps {
-  setPanel: (string) => void;
   go: (number) => void;
+  id: string
 }
 
 const showAdd = async (user: UserInterface, setPanel) => {
@@ -18,7 +18,7 @@ const showAdd = async (user: UserInterface, setPanel) => {
   }
 };
 
-export const Subscribe = ({ setPanel, go }: SubscribeProps) => {
+export const Subscribe = ({ id, go }: SubscribeProps) => {
   const { user, setUser, config} = useContext(UserContext);
 
   useEffect(() => {
@@ -30,40 +30,43 @@ export const Subscribe = ({ setPanel, go }: SubscribeProps) => {
 
   useLayoutEffect(() => {
     if (!user) {
-      setPanel('Share');
+      go('Share');
       return;
     }
-    showAdd(user, setPanel);
+
+    showAdd(user, go);
   }, [user]);
 
   const onSubscribe = () => {
-    setPanel('Share');
+    go('Share');
   };
 
   return (
-    <div className="InitMenu">
-      <button
-        type="button"
-        onClick={async () => {
-	  await showAds(false);
-          setPanel('Share');
-        }}
-        className="SkipButton"
-      >
-        Отказаться  
-      </button>
-      <img src={api.getImage('system/subscribe.png')} alt="" />
-      <div className="Buttons">
-          <h1>{config?.subscribeWindowText}</h1>
-	  <SubscribeButton
-            onSubscribe={onSubscribe}
-            user={user!}
-            setUser={setUser}
-	    bridge={bridge}
-          >
-            {config?.subscribeButton}
-          </SubscribeButton>
+    <Panel id={id} style={{ minHeight: '100vh' }}>
+      <div className="InitMenu">
+        <button
+          type="button"
+          onClick={async () => {
+            await showAds(false);
+            go('Share');
+          }}
+          className="SkipButton"
+        >
+          Отказаться  
+        </button>
+        <img src={api.getImage('system/subscribe.png')} alt="" />
+        <div className="Buttons">
+            <h1>{config?.subscribeWindowText}</h1>
+            <SubscribeButton
+              onSubscribe={onSubscribe}
+              user={user!}
+              setUser={setUser}
+              bridge={bridge}
+            >
+              {config?.subscribeButton}
+            </SubscribeButton>
+        </div>
       </div>
-    </div>
+    </Panel>
   );
 };

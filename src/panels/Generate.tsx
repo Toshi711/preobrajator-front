@@ -1,12 +1,10 @@
-import { Panel, ScreenSpinner } from '@vkontakte/vkui';
+import { ScreenSpinner, Panel } from '@vkontakte/vkui';
 import {
   useContext,
   useEffect,
-  useState,
 } from 'react';
 import { showAds } from '../utils/utils';
 import api from '../utils/api';
-import ErrorPanel from './Error';
 import { LimitError, FaceNotFound } from '../utils/exceptions';
 import { UserContext } from '../store/user-context';
 import {
@@ -14,20 +12,6 @@ import {
   GenerationResultInterface,
 } from '../store/generation-result-context';
 import { FolderPhotoInterface } from '../store/folder.interface';
-import { Subscribe } from './generation-flow/Subscribe';
-import { Share } from './generation-flow/Share';
-import { HistoryPublication } from './generation-flow/HistoryPublication';
-import { GenerationResult } from './generation-flow/GenerationResult';
-import { Confirmation } from './generation-flow/Confirmation';
-
-const panels = {
-  Subscribe,
-  Share,
-  HistoryPublication,
-  GenerationResult,
-  ErrorPanel,
-  Confirmation
-};
 
 export interface GenerateProps {
   id: string;
@@ -37,7 +21,6 @@ export interface GenerateProps {
 }
 
 export default function Generate({ id, photo, go, ava }: GenerateProps) {
-  const [panel, setPanel] = useState<string | null>(null);
   const { generationResult, setGenerationResult } = useContext(GenerationResultContext,);
   const { user, setUser } = useContext(UserContext);
 
@@ -69,7 +52,7 @@ export default function Generate({ id, photo, go, ava }: GenerateProps) {
           });
         }
 
-        setPanel('Subscribe');
+        go('Subscribe');
 
       } catch (e) {
         if (e instanceof FaceNotFound) {
@@ -97,25 +80,14 @@ export default function Generate({ id, photo, go, ava }: GenerateProps) {
     start();
   }, []);
 
-  if (!panel){
-    return (
+  return (
+    <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
         <h1 className="loading-text" style={{ marginBottom: '200px' }}>
           Пожалуйста, подождите. Идет создание вашего нового образа...
         </h1>
         <ScreenSpinner />
       </div>
-    );
-  }
-
-  const ActivePanel = panels[panel];
-
-  return (
-    <Panel id={id}>
-      <ActivePanel
-        setPanel={setPanel}
-        go={go}
-      />
     </Panel>
   );
 }

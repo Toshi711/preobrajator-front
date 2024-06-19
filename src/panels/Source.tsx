@@ -1,6 +1,4 @@
 import { Panel, File, Button } from '@vkontakte/vkui';
-import { Icon24Camera } from '@vkontakte/icons';
-import { Icon20StoryFillCircleRed } from '@vkontakte/icons';
 import { useContext } from 'react';
 import { UserContext } from '../store/user-context';
 import api from '../utils/api';
@@ -28,6 +26,7 @@ export default function Source({ id, go, setAva, setActivePhoto, activePhoto, go
         <h3>
           Какое фото использовать для этого образа?
         </h3>
+
         <Button
             size="l"
             appearance='accent'
@@ -38,7 +37,6 @@ export default function Source({ id, go, setAva, setActivePhoto, activePhoto, go
                   setAva(blob);
                   go('generate');
                 });
-              go('image')
             }}
           >
             Свое фото с аватара
@@ -53,8 +51,8 @@ export default function Source({ id, go, setAva, setActivePhoto, activePhoto, go
         >
           Загрузить с устройства
         </File>
-        </div>
 
+        </div>
       </div>
     </Panel>
   );

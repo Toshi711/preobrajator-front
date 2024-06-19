@@ -1,16 +1,16 @@
 import { showAds, wallPost } from '../../utils/utils';
-import { Button } from '@vkontakte/vkui';
+import { Button, Panel } from '@vkontakte/vkui';
 import { useContext, useEffect } from 'react';
 import { GenerationResultContext } from '../../store/generation-result-context';
 import { UserContext } from '../../store/user-context';
 import api from '../../utils/api';
   
 export interface ShareProps {
-  setPanel: (string) => void;
   go: (string) => void;
+  id: string
 }
 
-export const Share = ({ setPanel, go }: ShareProps) => {
+export const Share = ({ id, go }: ShareProps) => {
   const { generationResult } = useContext(GenerationResultContext);
   const { config, user } = useContext(UserContext)
 
@@ -25,15 +25,16 @@ export const Share = ({ setPanel, go }: ShareProps) => {
     try {
       await wallPost(
         generationResult?.textPhoto,
+        generationResult?.textCaption,
         generationResult?.photo.relativePath,
       );
       await showAds(false);
 
       if(!user?.limits.groupSubscription){
-        setPanel('Confirmation');
+        go('Confirmation');
       }
       else {
-        setPanel('HistoryPublication')  
+        go('HistoryPublication')  
       }
 
     } catch (e) {
@@ -42,34 +43,37 @@ export const Share = ({ setPanel, go }: ShareProps) => {
   };
 
   return (
-    <div className="InitMenu">
-      <button
-        type="button"
-        onClick={async () => {
-          await showAds(false);
-          if(!user?.limits.groupSubscription){
-            setPanel('Confirmation');
-          }
-          else {
-            setPanel('HistoryPublication')  
-          }
-        }}
-        
-        className="SkipButton"
-      >
-        Отказаться
-      </button>
+    <Panel id={id} style={{ minHeight: '100vh' }}>
+      <div className="InitMenu">
+        <button
+          type="button"
+          onClick={async () => {
+            await showAds(false);
+            if(!user?.limits.groupSubscription){
+              go('Confirmation');
+            }
+            else {
+              go('HistoryPublication')  
+            }
+          }}
+          
+          className="SkipButton"
+        >
+          Отказаться
+        </button>
 
-      <img src={api.getImage('system/repost.png')} alt="" />
+        <img src={api.getImage('system/repost.png')} alt="" />
 
-      <div className="Buttons">
-        <h1>
-          {config?.repostWindowText}
-        </h1>
-          <Button size="l" type="button" appearance='positive' className="DefaultButton" onClick={share}>
-            {config?.repostButtonText}
-          </Button>
+        <div className="Buttons">
+          <h1>
+            {config?.repostWindowText}
+          </h1>
+            <Button size="l" type="button" appearance='positive' className="DefaultButton" onClick={share}>
+              {config?.repostButtonText}
+            </Button>
+        </div>
       </div>
-    </div>
+
+    </Panel>
   );
 };

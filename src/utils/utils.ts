@@ -10,7 +10,7 @@ export async function getToken(scope) {
   });
 }
 
-export async function wallPost(text, photo) {
+export async function wallPost(text, caption, photo) {
   try {
     const token = await getToken('photos');
     const albums = await bridge.send('VKWebAppCallAPIMethod', {
@@ -24,7 +24,8 @@ export async function wallPost(text, photo) {
     let album = await albums.response.items.find(
       // @ts-ignore
       (x) => x.title === window.process.ALBUM,
-    );
+    )
+
     if (!album) {
       const data = await bridge.send('VKWebAppCallAPIMethod', {
         method: 'photos.createAlbum',
@@ -55,6 +56,7 @@ export async function wallPost(text, photo) {
     let attachment = await bridge.send('VKWebAppCallAPIMethod', {
       method: 'photos.save',
       params: {
+        caption,
         album_id: album.id,
         server: photoResult.server,
         photos_list: photoResult.photos_list,

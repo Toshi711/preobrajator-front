@@ -5,13 +5,13 @@ import { showAds } from '../utils/utils';
 import Header from '../components/header';
 import api from '../utils/api';
 import Masonry from 'react-masonry-component';
+import { shuffle } from 'lodash';
 
 const MAX_COUNT = 16; // Количество фото которые будут загркжены/подгружены
 
 export default function Images({ id, go, folder, setAva, setActivePhoto, goBack }) {
   const [offset, setOffset] = useState(0);
   const [loading, setLoading] = useState(true);
-
   const { user } = useContext(UserContext);
 
   const loadingTimeout = () => {
@@ -27,7 +27,7 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
     setOffset(offset + MAX_COUNT); // Подгружаем еще фото с помощью смещения
   };
 
-  const photosBatch = folder.photos.slice(0, offset + MAX_COUNT);
+  const photosBatch = shuffle(folder.photos.slice(0, offset + MAX_COUNT))
 
   const childElements = photosBatch.map(photo => {
 
@@ -65,12 +65,11 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <Header title="Выберите образ" back={true} goBack={goBack}/>
-      
       <Masonry className='images'>{childElements}</Masonry>
 
       {hasMorePhotos ? (
           <Button
-	    type="button"
+	          type="button"
             onClick={getPhotos}
             appearance='accent'
             stretched
