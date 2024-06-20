@@ -134,9 +134,9 @@ export async function showAds(
     }
 
     await bridge.send('VKWebAppShowNativeAds', {
-      // @ts-ignore
       ad_format: adFormat,
     });
+    
   } catch (e) {
     console.error(e);
   }

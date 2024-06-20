@@ -41,7 +41,6 @@ export const Confirmation = ({ id, go }) => {
               size="l"
               appearance='accent'
               onClick={async () => {
-                await showAds()
                 go('HistoryPublication');
               }}
             >

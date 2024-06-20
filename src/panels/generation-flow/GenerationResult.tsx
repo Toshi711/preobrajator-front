@@ -22,12 +22,6 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
       return;
     }
 
-    if (Boolean(user?.limits.limit)){
-      setTimeout(() => {
-        showAds(false, EAdsFormats.REWARD);
-      }, 3000);
-    }
-
   }, [generationResult, user]);
 
   const share = async () => {
@@ -45,7 +39,6 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
   };
 
   const onSubscribe = async () => {
-    await showAds(false);
     go('init');
   };
 
@@ -67,7 +60,6 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
             <Button
               type="button"
               onClick={async () => {
-                await showAds()
                 go('init')
               }}
               size="l"

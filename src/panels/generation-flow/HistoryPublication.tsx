@@ -31,7 +31,6 @@ export const HistoryPublication = ({
         generationResult?.basePhotoStartupLink || ''
       );
 
-      await showAds(true);
       go('GenerationResult');
     } catch (e) {
       console.error(e);
@@ -56,7 +55,6 @@ export const HistoryPublication = ({
               size="l"
               appearance='accent'
               onClick={async () => {
-                await showAds()
                 go('GenerationResult');
               }}
             >
