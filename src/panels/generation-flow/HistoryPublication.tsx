@@ -1,6 +1,6 @@
 import { shareHistory, showAds } from '../../utils/utils';
 import { Button, Panel } from '@vkontakte/vkui';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GenerationResultContext } from '../../store/generation-result-context';
 import { UserContext } from '../../store/user-context';
 import api from '../../utils/api';
@@ -16,6 +16,7 @@ export const HistoryPublication = ({
 }: HistoryPublicationProps) => {
   const { generationResult } = useContext(GenerationResultContext);
   const { config } = useContext(UserContext)
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     if (!generationResult) {
@@ -26,6 +27,7 @@ export const HistoryPublication = ({
 
   const share = async () => {
     try {
+      setLoading(true)
       await shareHistory(
         generationResult?.photo.absolutePath as string,
         generationResult?.basePhotoStartupLink || ''
@@ -34,6 +36,9 @@ export const HistoryPublication = ({
       go('GenerationResult');
     } catch (e) {
       console.error(e);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -47,9 +52,10 @@ export const HistoryPublication = ({
             {config?.storiesWindowText}
           </h1>
           
-          <Button size="l"  type="button" appearance='positive' className="DefaultButton" onClick={share}>
+          <Button size="l"  type="button" appearance='positive' className="DefaultButton" onClick={share} loading={loading}>
             {config?.storiesButtonText}
           </Button>
+
           <Button
               type="button"
               size="l"

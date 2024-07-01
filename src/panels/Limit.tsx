@@ -56,7 +56,7 @@ export default function Limit({ id, go }) {
         <div className="Buttons">
           <h1>
             К сожалению, на сегодня ваш лимит на образы исчерпан. Пожалуйста,
-            заходите завтра
+            заходите завтра.
           </h1>
 
           {user?.limits?.groupIds?.length ? (
@@ -87,7 +87,7 @@ export default function Limit({ id, go }) {
               setUser({...user, limits: {...user.limits, groupSubscription: true}})
             }
             }}>
-              Получать в сообщениях больше образов
+              Получать образы в сообщениях
             </Button>
           )}
         </div>

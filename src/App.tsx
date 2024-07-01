@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import bridge from '@vkontakte/vk-bridge';
 import {
   View,
@@ -69,8 +69,9 @@ const App = () => {
 
   const go = (e) => {
     const panel = typeof e === 'string' ? e : e.currentTarget.dataset.to
+    window.history.pushState( { panel }, panel )
+    history.push( panel ); 
     setActivePanel(panel);
-    setHistory([...history, panel])
   };
 
   const goBack = () => {
@@ -78,13 +79,18 @@ const App = () => {
       bridge.send("VKWebAppClose", {"status": "success"}); // Отправляем bridge на закрытие сервиса.
     } else if( history.length > 1 ) { // Если в массиве больше одного значения:
       history.pop() // удаляем последний элемент в массиве.
-      setActivePanel(history[history.length - 1] ) // Изменяем массив с иторией и меняем активную панель.
+      setActivePanel( history[history.length - 1] ) // Изменяем массив с иторией и меняем активную панель.
     }
   }
 
+  useEffect(() => {
+    window.addEventListener('popstate', goBack)
+    return () => window.removeEventListener('popstate', goBack)
+  }, [])
+
   return (
     <ErrorBoundary>
-      <ConfigProvider>
+      <ConfigProvider isWebView={true}>
         <AdaptivityProvider>
           <AppRoot>
             <UserContext.Provider value={{ user: fetchedUser, setUser, config }}>
@@ -115,6 +121,7 @@ const App = () => {
                         setActivePhoto={setActivePhoto}
                         activePhoto={activePhoto}
                         goBack={goBack}
+                        setPopout={setPopout}
                       />
                       <Images
                         id="images"

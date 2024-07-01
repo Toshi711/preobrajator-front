@@ -1,4 +1,4 @@
-p {
+np {
     margin: 0;
     padding:  0;
 }
@@ -35,38 +35,70 @@ input, textarea, .editor{
     flex-direction: column;
 }
 
-
 .home {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    box-sizing: border-box;
     padding: 10px;
 }
 
-
 .Card {
-    overflow: hidden;
-    padding: 0 !important;
+    padding: 5px !important;
+    box-sizing: border-box;
+    flex-basis: 50%;
+    flex-grow: 0;
+    flex-shrink: 1;
+    height: 65vh;
+    position: relative;
+}
+
+.CardInner {
+    box-sizing: border-box;
     border: 0.5px solid rgba(191, 191, 191, 0.572);
     border-radius: 5px;
     margin-bottom: 10px;
-
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+
 }
 
-.Card h4 {
-    margin: 0;
-    padding: 10px;
-    font-weight: 500;
+.PhotoInner{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    flex-basis: 90%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    overflow: hidden;
 }
 
-.Card img {
-    max-width: 100%;
+.PhotoInner img{
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.CardText{
+    width: 100%;
+    margin: 0;  
+    font-weight: 500;
+    flex-basis: 10%;
+    flex-grow: 0;
+    flex-shrink: 1;
+}
+
+.CardText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (hover: hover) {

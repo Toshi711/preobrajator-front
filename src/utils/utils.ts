@@ -56,7 +56,6 @@ export async function wallPost(text, caption, photo) {
     let attachment = await bridge.send('VKWebAppCallAPIMethod', {
       method: 'photos.save',
       params: {
-        caption,
         album_id: album.id,
         server: photoResult.server,
         photos_list: photoResult.photos_list,

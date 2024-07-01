@@ -1,6 +1,6 @@
 import { showAds, wallPost } from '../../utils/utils';
 import { Button, Panel } from '@vkontakte/vkui';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { GenerationResultContext } from '../../store/generation-result-context';
 import { UserContext } from '../../store/user-context';
 import api from '../../utils/api';
@@ -13,7 +13,7 @@ export interface ShareProps {
 export const Share = ({ id, go }: ShareProps) => {
   const { generationResult } = useContext(GenerationResultContext);
   const { config, user } = useContext(UserContext)
-
+  const [loading, setLoading] = useState<boolean>(false)
   useEffect(() => {
     if (!generationResult) {
       go('error_panel');
@@ -23,6 +23,7 @@ export const Share = ({ id, go }: ShareProps) => {
 
   const share = async () => {
     try {
+      setLoading(true)
       await wallPost(
         generationResult?.textPhoto,
         generationResult?.textCaption,
@@ -39,6 +40,9 @@ export const Share = ({ id, go }: ShareProps) => {
     } catch (e) {
       console.error(e);
     }
+    finally {
+      setLoading(false)
+    }
   };
 
   return (
@@ -50,7 +54,7 @@ export const Share = ({ id, go }: ShareProps) => {
           <h1>
             {config?.repostWindowText}
           </h1>
-            <Button size="l" type="button" appearance='positive' className="DefaultButton" onClick={share}>
+            <Button size="l" type="button" appearance='positive' className="DefaultButton" onClick={share} loading={loading}>
               {config?.repostButtonText}
             </Button>
             <Button

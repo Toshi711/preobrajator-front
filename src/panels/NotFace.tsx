@@ -1,5 +1,4 @@
 import { Panel, File, Button } from '@vkontakte/vkui';
-import { Icon20StoryFillCircleRed } from '@vkontakte/icons';
 import { useContext } from 'react';
 import { UserContext } from '../store/user-context';
 import api from '../utils/api';
@@ -22,7 +21,7 @@ export default function NotFace({ id, go, setAva }) {
         <div className="Buttons">
 
           <h1>
-            Не удалось определить лицо на аватарке. Попробуйте другое фото из галереи или обновите аватарку. На фото должно быть 1 лицо в хорошем качестве
+            Не удалось определить лицо на фотографии. Попробуйте другое фото из галереи или обновите вашу аватарку. На фото должно быть 1 лицо в хорошем качестве.
           </h1>
           
           <Button

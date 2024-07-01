@@ -30,8 +30,9 @@ export const Confirmation = ({ id, go }) => {
               await MessagesConfirmation(Number(config?.group))
 
               if(user?.limits){
-                setUser({...user, limits: {...user.limits, groupSubscription: true}})
+                setUser({...user, limits: {...user.limits, limit: (user?.limits?.limit ?? 0) + 1, groupSubscription: true}})
               }
+
               go('HistoryPublication')
             }}>
               {config?.confirmationButtonText}

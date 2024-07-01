@@ -28,13 +28,6 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
   const photosBatch = folder.photos.slice(0, offset + MAX_COUNT)
 
   const childElements = photosBatch.map(photo => {
-
-    let width = window.innerWidth / 2
-
-    if (window.innerWidth > 450) {
-      width = window.innerWidth / 4
-    }
-
     return (
       <div
         key={photo.name}
@@ -50,7 +43,6 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
         className='Image'
       >
         <img
-          style={{ width: width + 'px' }}
           className="MainPhoto"
           src={api.getImage(photo.name)}
         />
@@ -63,7 +55,7 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <Header title="Выберите образ" back={true} goBack={goBack}/>
-      <Masonry className='images'>{childElements}</Masonry>
+      <div className='images'>{childElements}</div>
 
       {hasMorePhotos ? (
           <Button
@@ -72,7 +64,6 @@ export default function Images({ id, go, folder, setAva, setActivePhoto, goBack 
             appearance='accent'
             stretched
             size="l"
-            style={{margin: '5px'}}
           >
             Загрузить еще
           </Button>

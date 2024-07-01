@@ -1,15 +1,47 @@
-import { Panel, File, Button } from '@vkontakte/vkui';
-import { useContext } from 'react';
+import { Panel, File, Button, Alert } from '@vkontakte/vkui';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../store/user-context';
 import api from '../utils/api';
 import Header from '../components/header';
 
-export default function Source({ id, go, setAva, setActivePhoto, activePhoto, goBack}) {
+export default function Source({ id, go, setAva, setPopout, setActivePhoto, activePhoto, goBack}) {
 
   const { user } = useContext(UserContext);
 
+  const closePopout = () => {
+    setPopout(null);
+  };
+
+  const openAction = () => {
+    setPopout(
+      <Alert
+        actions={[
+          {
+            title: 'Ок',
+            mode: 'destructive',
+            action: () => { 
+              setPopout(null)
+            }
+          },
+        ]}
+        actionsLayout="vertical"
+        onClose={closePopout}
+        header="Ошибка" 
+        text="Не подходящий формат файла, попробуйте выбрать другой"
+      />,
+    );
+  };
+
   const getPhoto = (e) => {
-    setAva(e.target.files[0]);
+
+    const file = e.target.files[0]
+
+    if(!/image\/.+/.test(file.type)){
+      openAction()
+      return
+    }
+
+    setAva(file);
     go('generate');
   };
 

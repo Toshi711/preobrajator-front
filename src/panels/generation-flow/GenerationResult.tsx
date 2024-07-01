@@ -1,6 +1,6 @@
 import { MessagesConfirmation, showAds, wallPost } from '../../utils/utils';
 import { Button, ButtonGroup, Panel } from '@vkontakte/vkui';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GenerationResultContext } from '../../store/generation-result-context';
 import { UserContext, UserInterface } from '../../store/user-context';
 import { SubscribeButton } from '../../components/subscribe-button';
@@ -14,6 +14,7 @@ export interface GenerationResultProps {
 export const GenerationResult = ({ id, go }: GenerationResultProps) => {
   const { generationResult } = useContext(GenerationResultContext);
   const { config, user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
 
@@ -26,6 +27,7 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
 
   const share = async () => {
     try {
+      setLoading(true)
       await wallPost(
         generationResult?.textPhoto,
         generationResult?.textCaption,
@@ -35,6 +37,9 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
       go('HistoryPublication');
     } catch (e) {
       console.error(e);
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -67,6 +72,7 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
             >
               Выбрать другой образ
             </Button>
+            
             : user?.limits?.groupIds?.length ?  (
             <SubscribeButton
               onSubscribe={onSubscribe}
@@ -84,6 +90,7 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
             size="l"
             className={'DefaultButton'}
             stretched
+            loading={loading}
           >
             Поделиться с друзьями
           </Button>

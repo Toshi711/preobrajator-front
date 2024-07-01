@@ -40,27 +40,31 @@ const Home = ({ id, go, folders, setActiveFolder }) => {
   const childElements = batchFolders.map(folder => {
     
     const photo = folder.photos[0]
-    let width = window.innerWidth / 2 - 20
-    
+
     return (
-      <div
-        key={folder.path}
-        onClick={() => {
-          setOffset(0);
-          setActiveFolder({...folder, photos: shuffle(folder.photos)});
-          go("images")
-        }}
-        style={{
-          textAlign: "center"
-        }}
-        className='Card'
-      >
-        <img
-          style={{ width: width + 'px' }}
-          className="MainPhoto"
-          src={api.getImage(photo.name)}
-        />
-        <h4>{folder.name}</h4>
+      <div className="Card">
+        <div
+          key={folder.path}
+          onClick={() => {
+            setOffset(0);
+            setActiveFolder({...folder, photos: shuffle(folder.photos)});
+            go("images")
+          }}
+          style={{
+            textAlign: "center"
+          }}
+          className='CardInner'
+        >
+          <div className="PhotoInner">
+            <img
+              className="MainPhoto"
+              src={api.getImage(photo.name)}
+            />
+          </div>
+          <div className="CardText">
+            <h4>{folder.name}</h4>
+          </div>
+        </div>
       </div>
     );
   });
@@ -73,10 +77,11 @@ const Home = ({ id, go, folders, setActiveFolder }) => {
       <div className="home">
       {childElements}
       </div>
+
       {hasMoreFolders ? (
-        <div style={{ padding: '10px' }}>
+        <div>
           <Button
-	     type="button"
+	          type="button"
             className="DefaultButton"
             onClick={getPhotos}
             stretched
