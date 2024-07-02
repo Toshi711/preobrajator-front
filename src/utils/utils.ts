@@ -60,6 +60,7 @@ export async function wallPost(text, caption, photo) {
         server: photoResult.server,
         photos_list: photoResult.photos_list,
         hash: photoResult.hash,
+        caption,
         v: '5.131',
         access_token: token.access_token,
       },
@@ -69,7 +70,7 @@ export async function wallPost(text, caption, photo) {
     await bridge.send('VKWebAppShowWallPostBox', {
       message: text,
       // @ts-ignore
-      attachment: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
+      attachments: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
     });
   } catch (e) {
     console.error(e);
