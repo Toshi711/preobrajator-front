@@ -30,6 +30,8 @@ export const Share = ({ id, go }: ShareProps) => {
         generationResult?.photo.relativePath,
       );
 
+      await showAds()
+
       if(!user?.limits.groupSubscription){
         go('Confirmation');
       }
@@ -48,6 +50,22 @@ export const Share = ({ id, go }: ShareProps) => {
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
+        <button
+          type="button"
+          onClick={async () => {
+            await showAds()
+
+            if(!user?.limits.groupSubscription){
+              go('Confirmation');
+            }
+            else {
+              go('HistoryPublication')  
+            }
+          }}
+          className='SkipButton'
+        >
+          Отказаться
+        </button> 
         <img src={api.getImage('system/repost.png')} alt="" />
 
         <div className="Buttons">
@@ -57,21 +75,6 @@ export const Share = ({ id, go }: ShareProps) => {
             <Button size="l" type="button" appearance='positive' className="DefaultButton" onClick={share} loading={loading}>
               {config?.repostButtonText}
             </Button>
-            <Button
-              type="button"
-              size="l"
-              appearance='accent'
-              onClick={async () => {
-                if(!user?.limits.groupSubscription){
-                  go('Confirmation');
-                }
-                else {
-                  go('HistoryPublication')  
-                }
-              }}
-            >
-              Отказаться
-            </Button> 
         </div>
       </div>
 

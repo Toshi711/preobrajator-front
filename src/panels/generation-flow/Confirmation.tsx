@@ -20,6 +20,17 @@ export const Confirmation = ({ id, go }) => {
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
 
+        <button
+          type="button"
+          className='SkipButton'
+          onClick={async () => {
+            await showAds()
+            go('HistoryPublication');
+          }}
+        >
+          Отказаться
+        </button> 
+
         <img src={api.getImage('system/confirmation.png')} alt="" />
 
         <div className="Buttons">
@@ -27,26 +38,17 @@ export const Confirmation = ({ id, go }) => {
             {config?.confirmationWindowText}
           </h1>
             <Button  type="button" size="l" appearance='positive' onClick={async () => {
+
               await MessagesConfirmation(Number(config?.group))
 
               if(user?.limits){
                 setUser({...user, limits: {...user.limits, limit: (user?.limits?.limit ?? 0) + 1, groupSubscription: true}})
-              }
-
+              } 
+              
               go('HistoryPublication')
             }}>
               {config?.confirmationButtonText}
             </Button>
-            <Button
-              type="button"
-              size="l"
-              appearance='accent'
-              onClick={async () => {
-                go('HistoryPublication');
-              }}
-            >
-              Отказаться
-            </Button> 
         </div>
       </div>
     </Panel>

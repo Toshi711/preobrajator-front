@@ -44,6 +44,8 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
   };
 
   const onSubscribe = async () => {
+    await showAds(false, EAdsFormats.REWARD)
+
     go('init');
   };
 
@@ -65,6 +67,7 @@ export const GenerationResult = ({ id, go }: GenerationResultProps) => {
             <Button
               type="button"
               onClick={async () => {
+                await showAds(false, EAdsFormats.REWARD)
                 go('init')
               }}
               size="l"

@@ -57,6 +57,7 @@ export async function wallPost(text, caption, photo) {
       method: 'photos.save',
       params: {
         album_id: album.id,
+        caption,
         server: photoResult.server,
         photos_list: photoResult.photos_list,
         hash: photoResult.hash,
@@ -71,8 +72,9 @@ export async function wallPost(text, caption, photo) {
       // @ts-ignore
       attachment: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
     });
+    
   } catch (e) {
-    console.error(e);
+    console.error(e.error_data);
   }
 }
 
@@ -112,7 +114,7 @@ function isAddAvailable(throttle) {
     return true;
   }
 
-  const availableAddTime = moment().subtract(30, 'second');
+  const availableAddTime = moment().subtract(5, 'second');
   return availableAddTime.isAfter(lastAddTime);
 }
 

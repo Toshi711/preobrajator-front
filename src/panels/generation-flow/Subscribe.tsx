@@ -37,14 +37,24 @@ export const Subscribe = ({ id, go }: SubscribeProps) => {
     showAdd(user, go);
   }, [user]);
 
-  const onSubscribe = () => {
+  const onSubscribe = async () => {
+    await showAds()
     go('Share');
   };
 
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
-
+        <button
+          type="button"
+          onClick={async () => {
+            await showAds()
+            go('Share');
+          }}
+          className='SkipButton'
+        >
+          Отказаться
+        </button> 
         <img src={api.getImage('system/subscribe.png')} alt="" />
         <div className="Buttons">
             <h1>{config?.subscribeWindowText}</h1>
@@ -56,17 +66,6 @@ export const Subscribe = ({ id, go }: SubscribeProps) => {
             >
               {config?.subscribeButton}
             </SubscribeButton>
-            <Button
-              type="button"
-              appearance='accent'
-              size="l"
-              onClick={async () => {
-                await showAds()
-                go('Share');
-              }}
-            >
-              Отказаться
-            </Button> 
         </div>
       </div>
     </Panel>

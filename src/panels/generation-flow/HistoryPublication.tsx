@@ -33,6 +33,8 @@ export const HistoryPublication = ({
         generationResult?.basePhotoStartupLink || ''
       );
 
+      await showAds()
+
       go('GenerationResult');
     } catch (e) {
       console.error(e);
@@ -45,6 +47,18 @@ export const HistoryPublication = ({
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
+
+          <button
+            type="button"
+            className='SkipButton'
+            onClick={async () => {
+              await showAds()
+
+              go('GenerationResult');
+            }}
+          >
+            Отказаться
+          </button> 
         <img src={api.getImage('system/stories.png')} alt="" />
         <div className="Buttons">
 
@@ -56,16 +70,6 @@ export const HistoryPublication = ({
             {config?.storiesButtonText}
           </Button>
 
-          <Button
-              type="button"
-              size="l"
-              appearance='accent'
-              onClick={async () => {
-                go('GenerationResult');
-              }}
-            >
-              Отказаться
-            </Button> 
         </div>
 
       </div>
