@@ -30,8 +30,6 @@ export const Share = ({ id, go }: ShareProps) => {
         generationResult?.photo.relativePath,
       );
 
-      await showAds()
-
       if(!user?.limits.groupSubscription){
         go('Confirmation');
       }
@@ -53,8 +51,6 @@ export const Share = ({ id, go }: ShareProps) => {
         <button
           type="button"
           onClick={async () => {
-            await showAds()
-
             if(!user?.limits.groupSubscription){
               go('Confirmation');
             }

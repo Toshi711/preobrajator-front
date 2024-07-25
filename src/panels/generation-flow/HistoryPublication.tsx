@@ -34,7 +34,6 @@ export const HistoryPublication = ({
       );
 
       await showAds()
-
       go('GenerationResult');
     } catch (e) {
       console.error(e);
@@ -53,7 +52,6 @@ export const HistoryPublication = ({
             className='SkipButton'
             onClick={async () => {
               await showAds()
-
               go('GenerationResult');
             }}
           >
@@ -71,7 +69,6 @@ export const HistoryPublication = ({
           </Button>
 
         </div>
-
       </div>
     </Panel>
   );

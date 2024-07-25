@@ -24,7 +24,6 @@ export const Confirmation = ({ id, go }) => {
           type="button"
           className='SkipButton'
           onClick={async () => {
-            await showAds()
             go('HistoryPublication');
           }}
         >

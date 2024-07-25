@@ -46,7 +46,6 @@ const Home = ({ id, go, folders, setActiveFolder }) => {
         <div
           key={folder.path}
           onClick={async () => {
-            await showAds()
             setOffset(0);
             setActiveFolder({...folder, photos: shuffle(folder.photos)});
             go("images")

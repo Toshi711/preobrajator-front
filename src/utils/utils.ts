@@ -70,7 +70,7 @@ export async function wallPost(text, caption, photo) {
     await bridge.send('VKWebAppShowWallPostBox', {
       message: text,
       // @ts-ignore
-      attachment: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
+      attachments: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
     });
     
   } catch (e) {
