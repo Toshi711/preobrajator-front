@@ -12,7 +12,7 @@ import { Directory } from '../panels/Admin/categories';
 
 class API {
 
-  baseURL = 'https://preobrajator.ru';
+  baseURL = 'https://obraznew.ru';
   apiUrl = `${this.baseURL}/api`;
   cdnUrl = `${this.baseURL}`;
 
@@ -139,7 +139,7 @@ class API {
     } = {
       limits: {
         limit: response.limit,
-        groupIds: response.groupIds,
+        groupIds: [response.groupIds[0]],
         groupSubscription: response.groupSubscription
       },
     };

@@ -34,6 +34,7 @@ export async function wallPost(text, caption, photo) {
           title: window.process.ALBUM,
           v: '5.131',
           access_token: token.access_token,
+          
         },
       });
       album = data.response;
@@ -60,18 +61,19 @@ export async function wallPost(text, caption, photo) {
         server: photoResult.server,
         photos_list: photoResult.photos_list,
         hash: photoResult.hash,
-        caption,
+        caption: 'https://vk.com/app52033739',
         v: '5.131',
         access_token: token.access_token,
       },
     });
 
     const photoAttachment = attachment.response[0];
+
     await bridge.send('VKWebAppShowWallPostBox', {
       message: text,
-      // @ts-ignore
-      attachments: `photo${photoAttachment.owner_id}_${photoAttachment.id}`,
+      attachments: `photo${photoAttachment.owner_id}_${photoAttachment.id},https://vk.com/app52033739`,
     });
+
   } catch (e) {
     console.error(e);
   }

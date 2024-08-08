@@ -45,7 +45,7 @@ export const Subscribe = ({ id, go }: SubscribeProps) => {
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
 
-        <img src={api.getImage('system/subscribe.png')} alt="" />
+        <img src={api.getImage('system/subscribe2.png')} alt="" />
         <div className="Buttons">
             <h1>{config?.subscribeWindowText}</h1>
             <SubscribeButton

@@ -48,7 +48,7 @@ export const Share = ({ id, go }: ShareProps) => {
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
-        <img src={api.getImage('system/repost.png')} alt="" />
+        <img src={api.getImage('system/repost2.png')} alt="" />
 
         <div className="Buttons">
           <h1>

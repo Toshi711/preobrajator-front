@@ -20,7 +20,7 @@ export const Confirmation = ({ id, go }) => {
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
 
-        <img src={api.getImage('system/confirmation.png')} alt="" />
+        <img src={api.getImage('system/confirmation2.png')} alt="" />
 
         <div className="Buttons">
           <h1>

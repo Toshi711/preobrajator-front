@@ -45,7 +45,7 @@ export const HistoryPublication = ({
   return (
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
-        <img src={api.getImage('system/stories.png')} alt="" />
+        <img src={api.getImage('system/stories2.png')} alt="" />
         <div className="Buttons">
 
           <h1>

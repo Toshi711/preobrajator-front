@@ -16,7 +16,7 @@ export default function NotFace({ id, go, setAva }) {
     <Panel id={id} style={{ minHeight: '100vh' }}>
       <div className="InitMenu">
 
-        <img src={api.getImage('system/error.png')} alt="" />
+        <img src={api.getImage('system/error2.png')} alt="" />
 
         <div className="Buttons">
 
